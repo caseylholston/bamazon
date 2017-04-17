@@ -20,3 +20,29 @@ connection.query('SELECT * FROM products', function (err, res){
     }
     console.log('---------------------------------------');
 });
+
+//-------------QUESTION PROMPTS-------------------
+
+var initialQuestions = [
+    {
+        type:'input',
+        name:'itemID',
+        message:'What product would you like to purchase?'
+    },
+    {
+        type:'input',
+        name:'itemQuantity',
+        message:'How many would you like to purchase?'
+    },   
+    ];
+
+//-------------END OF QUESTION PROMPTS-------------------    
+
+//-------------BEGIN CUSTOMER OUTPUT-------------------
+ inquirer.prompt(initialQuestions).then(function (answers){
+        connection.query('SELECT * FROM products WHERE itemID=?', [answers.itemID], function(err, res) {
+            for (var i = 0; i < res.length; i++) {
+                console.log('Item ID: ' + res[i].item_id + "|" + 'Product Name: ' + res[i].product_name + " | " + 'Department: ' + res[i].department_name + " | " + 'Price: $' + res[i].price + " | " + 'Quantity in Stock: ' + res[i].stock + '\n' );
+            }
+        });
+});

@@ -45,14 +45,16 @@ var customerQuestions = [
 
 //-------------BEGIN CUSTOMER OUTPUT-------------------
 function questionOne() {inquirer.prompt(customerQuestions).then(function (answers){
-        connection.query('SELECT * FROM products WHERE item_id=?', [answers.itemID], function(err, res2) {
-            console.log('Item ID Results: '+ res2);
-            var newQuantity = res2[0].stock - answers.itemQuantity
-            var purchaseTotal = answers.itemQuantity*res2[0].price
+        connection.query('SELECT * FROM products WHERE item_id=?', [answers.itemID], function(err, data) {
+            console.log(answers.itemID);
+            console.log(answers.itemQuantity);
+            console.log('Item ID Results: '+ data);
+            var newQuantity = parseInt(data[0].stock) - parseInt(answers.itemQuantity)
+            var purchaseTotal = parseFloat(answers.itemQuantity*data[0].price)
             console.log('NEW QUANTITY: ' + newQuantity);
-            for (var i = 0; i < res2.length; i++) {
-            console.log('Item ID: ' + res2[i].item_id + "|" + 'Product Name: ' + res2[i].product_name + " | " + 'Department: ' + res2[i].department_name + " | " + 'Price: $' + res2[i].price + " | " + 'Quantity in Stock: ' + res2[i].stock + '\n' );}
-            if (res2[0].stock >= answers.itemQuantity){
+            for (var i = 0; i < data.length; i++) {
+            console.log('Item ID: ' + data[i].item_id + "|" + 'Product Name: ' + data[i].product_name + " | " + 'Department: ' + data[i].department_name + " | " + 'Price: $' + data[i].price + " | " + 'Quantity in Stock: ' + data[i].stock + '\n' );}
+            if (data[0].stock >= answers.itemQuantity){
                 //console.log('NEW QUANTITY2: ' + newQuantity);
                 //console.log('Item ID '+ answers.itemID);
                 connection.query("UPDATE products SET ? WHERE ?", [{stock: newQuantity}, {item_id: answers.itemID}], function(err, res) {
@@ -65,3 +67,4 @@ function questionOne() {inquirer.prompt(customerQuestions).then(function (answer
         });
 });
 }
+//connection.end();

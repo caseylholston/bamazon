@@ -46,14 +46,14 @@ var customerQuestions = [
 //-------------BEGIN CUSTOMER OUTPUT-------------------
 function questionOne() {inquirer.prompt(customerQuestions).then(function (answers){
         connection.query('SELECT * FROM products WHERE item_id=?', [answers.itemID], function(err, data) {
-            console.log(answers.itemID);
-            console.log(answers.itemQuantity);
-            console.log('Item ID Results: '+ data);
+            // console.log(answers.itemID);
+            // console.log(answers.itemQuantity);
+            // console.log('Item ID Results: '+ data);
             var newQuantity = parseInt(data[0].stock) - parseInt(answers.itemQuantity)
             var purchaseTotal = parseFloat(answers.itemQuantity*data[0].price)
             var newProductSales = data[0].product_sales += purchaseTotal
-            console.log('NEW QUANTITY: ' + newQuantity);
-            console.log(newProductSales);
+            // console.log('NEW QUANTITY: ' + newQuantity);
+            // console.log(newProductSales);
             for (var i = 0; i < data.length; i++) {
             console.log('Item ID: ' + data[i].item_id + "|" + 'Product Name: ' + data[i].product_name + " | " + 'Department: ' + data[i].department_name + " | " + 'Price: $' + data[i].price + " | " + 'Quantity in Stock: ' + data[i].stock + '\n' );}
             if (data[0].stock >= answers.itemQuantity){

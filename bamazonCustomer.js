@@ -49,9 +49,9 @@ function questionOne() {inquirer.prompt(customerQuestions).then(function (answer
             // console.log(answers.itemID);
             // console.log(answers.itemQuantity);
             // console.log('Item ID Results: '+ data);
-            var newQuantity = parseInt(data[0].stock) - parseInt(answers.itemQuantity)
-            var purchaseTotal = parseFloat(answers.itemQuantity*data[0].price)
-            var newProductSales = data[0].product_sales += purchaseTotal
+            var newQuantity = parseInt(data[0].stock) - parseInt(answers.itemQuantity);
+            var purchaseTotal = parseFloat(answers.itemQuantity*data[0].price).toFixed(2);
+            var newProductSales = parseFloat(data[0].product_sales += purchaseTotal).toFixed(2);
             // console.log('NEW QUANTITY: ' + newQuantity);
             // console.log(newProductSales);
             for (var i = 0; i < data.length; i++) {

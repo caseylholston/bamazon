@@ -51,14 +51,18 @@ function questionOne() {inquirer.prompt(customerQuestions).then(function (answer
             console.log('Item ID Results: '+ data);
             var newQuantity = parseInt(data[0].stock) - parseInt(answers.itemQuantity)
             var purchaseTotal = parseFloat(answers.itemQuantity*data[0].price)
+            var newProductSales = data[0].product_sales += purchaseTotal
             console.log('NEW QUANTITY: ' + newQuantity);
+            console.log(newProductSales);
             for (var i = 0; i < data.length; i++) {
             console.log('Item ID: ' + data[i].item_id + "|" + 'Product Name: ' + data[i].product_name + " | " + 'Department: ' + data[i].department_name + " | " + 'Price: $' + data[i].price + " | " + 'Quantity in Stock: ' + data[i].stock + '\n' );}
             if (data[0].stock >= answers.itemQuantity){
                 //console.log('NEW QUANTITY2: ' + newQuantity);
                 //console.log('Item ID '+ answers.itemID);
-                connection.query("UPDATE products SET ? WHERE ?", [{stock: newQuantity}, {item_id: answers.itemID}], function(err, res) {
+                connection.query("UPDATE products SET ? WHERE ?", [{stock: newQuantity, product_sales: newProductSales},{item_id: answers.itemID}], function(err, res) {
                     console.log('The total cost of your purchase is: $' + purchaseTotal);
+                });
+                connection.query("UPDATE departments SET ? WHERE ?", [{total_sales : newProductSales}, {department_name: data[0].department_name}], function(err, res) {
                 });
             }
             else{

@@ -77,7 +77,7 @@ var initialMenu = [
 
         case 'Add to Inventory':
         addInventory();
-        connection.end();
+        //connection.end();
         break;
 
         case 'Add New Product':
@@ -114,7 +114,7 @@ function addInventory(){
     console.log('---------------------------------------');
         inquirer.prompt(addInventoryMenu).then(function (answers){
                 connection.query('SELECT * FROM products WHERE item_id=?', [answers.itemID], function(err, res1) {
-                //console.log('Item ID Results: '+ res1);
+                console.log('Item ID Results: '+ res1);
                 if(isNaN(answers.itemQuantity)===false){
                 var newQuantity = parseInt(res1[0].stock) + parseInt(answers.itemQuantity);
                 //console.log('New Quantity: ' + newQuantity);

@@ -1,6 +1,6 @@
-# bamazon
+# Bamazon
 
-Below are the links for the different applications for Week 12
+Below are the links for the different application videos for Week 12
 
 [Bamazon Customer](https://www.youtube.com/watch?v=FWmmTNDXoR4)
 

@@ -29,23 +29,13 @@ var initialMenu = [
     var addDepartmentMenu = [
     {
         type:'input',
-        name:'product_name',
-        message:"What is the name of your product -- Please type the Product Name and Press ENTER",
-    },
-    {
-        type:'input',
         name:'department_name',
-        message:"What department is the product in? -- Please type the Department Name and Press ENTER",
+        message:"What is the name of the department? -- Please type the Department Name and Press ENTER",
     },
     {
         type:'input',
-        name:'price',
-        message:"What is the price of the product? -- Please type the Price and Press ENTER",
-    },
-    {
-        type:'input',
-        name:'stock',
-        message:"How many of this product would you like to add to Inventory? -- Please type the number of items in whole numbers and Press ENTER",
+        name:'overhead_costs',
+        message:"What are the overhead costs of the department? -- Please type the costs and Press ENTER",
     },
     ];
 
@@ -60,7 +50,7 @@ var initialMenu = [
         break;
 
         case 'Create New Department':
-        createDepartment();
+        addDepartment();
         //connection.end();
         break;
     }
@@ -78,4 +68,16 @@ function viewDepartments(){
     console.log('---------------------------------------');
 })
 }
+function addDepartment(){
+    inquirer.prompt(addDepartmentMenu).then(function (answers){
+        var newDepartment = {department_name:answers.department_name, 
+                 over_head_costs:parseFloat(answers.overhead_costs)
+        };
+                connection.query('INSERT INTO departments SET ?', newDepartment, function(err, res){
+                    if (err) throw err;
+                    // console.log(res);
+                    // console.log('I Ran');
+                 })
+    })
+};
 

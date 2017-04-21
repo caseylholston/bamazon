@@ -114,10 +114,10 @@ function addInventory(){
     console.log('---------------------------------------');
         inquirer.prompt(addInventoryMenu).then(function (answers){
                 connection.query('SELECT * FROM products WHERE item_id=?', [answers.itemID], function(err, res1) {
-                console.log('Item ID Results: '+ res1);
+                //console.log('Item ID Results: '+ res1);
                 if(isNaN(answers.itemQuantity)===false){
                 var newQuantity = parseInt(res1[0].stock) + parseInt(answers.itemQuantity);
-                console.log('New Quantity: ' + newQuantity);
+                //console.log('New Quantity: ' + newQuantity);
                     connection.query('Update products SET ? WHERE ?', [{stock: newQuantity}, {item_id: answers.itemID}], function (err, res){
                     for (var i = 0; i < res1.length; i++) {
                     console.log('Item ID: ' + res1[i].item_id + "|" + 'Product Name: ' + res1[i].product_name + " | " + 'Department: ' + res1[i].department_name + " | " + 'Price: $' + res1[i].price + " | " + 'New Quantity in Stock: ' + newQuantity + '\n' );
@@ -138,8 +138,8 @@ function addProduct(){
                  stock:parseFloat(answers.stock)
         };
                 connection.query('INSERT INTO products SET ?', newProduct, function(err, res){
-                    console.log(res);
-                    console.log('I Ran');
+                    // console.log(res);
+                    // console.log('I Ran');
                  })
     })
 };
